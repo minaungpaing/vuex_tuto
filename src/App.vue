@@ -6,14 +6,17 @@
       </div>
       <router-view />
     </b-container>
+    <notification-list/>
   </div>
 </template>
 
 <script>
 import MainHeader from "@/components/MainHeader.vue";
+import NotificationList from './components/NotificationList.vue';
 export default {
   components: {
     MainHeader,
+    NotificationList,
   },
 };
 </script>

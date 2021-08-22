@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
+// import axios from 'axios'
+import Product from '../api/product'
+import notification from './notification/index'
+
 
 Vue.use(Vuex)
 
@@ -38,7 +41,8 @@ export default new Vuex.Store({
   },
   actions: {
     getProducts({ commit }) {
-      axios.get('https://fakestoreapi.com/products')
+      // axios.get('https://fakestoreapi.com/products')
+      Product.all()
         .then(res => {
           commit('SET_PRODUCTS', res.data);
         })
@@ -47,7 +51,8 @@ export default new Vuex.Store({
         })
     },
     getProduct({ commit }, id) {
-      axios.get(`https://fakestoreapi.com/products/${id}`)
+      // axios.get(`https://fakestoreapi.com/products/${id}`)
+      Product.show(id)
         .then(res => {
           commit('SET_PRODUCT', res.data);
         })
@@ -55,8 +60,13 @@ export default new Vuex.Store({
           console.log(err.data)
         })
     },
-    addToCard({ commit }, { product, qty }) {
+    addToCard({ commit, dispatch }, { product, qty }) {
       commit('ADD_TO_CART', { product, qty })
+
+      dispatch('notification/addNotification', {
+        type: 'success',
+        message: 'Product add to Cart'
+      }, { root:true })
     },
     removeFromCart({ commit }, product) {
       commit('REMOVE_FROM_CART', product)
@@ -75,5 +85,6 @@ export default new Vuex.Store({
     }
   },
   modules: {
+    notification
   }
 })

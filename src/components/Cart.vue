@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapActions } from 'vuex'
+
 export default {
   data() {
     return {
@@ -37,20 +39,27 @@ export default {
     cartCount() {
       return "Cart (" + this.$store.getters.cartCount.toString() + ")";
     },
-    cart() {
-      return this.$store.state.cart;
-    },
-    cartTotal() {
-      return this.$store.getters.cartTotal;
-    },
+    // cart() {
+    //   return this.$store.state.cart;
+    // },
+    ...mapState({
+      cart: 'cart'
+    }),
+    // cartTotal() {
+    //   return this.$store.getters.cartTotal;
+    // },
+    ...mapGetters({
+    cartTotal: 'cartTotal'
+})
   },
   methods: {
     clearCart() {
       return this.$store.commit("CLEAR_CART");
     },
-    removeFromCart(product) {
-      return this.$store.dispatch('removeFromCart', product)
-    }
+    // removeFromCart(product) {
+    //   return this.$store.dispatch('removeFromCart', product)
+    // },
+    ...mapActions (['removeFromCart'])
   },
 };
 </script>

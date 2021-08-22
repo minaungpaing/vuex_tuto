@@ -6,13 +6,16 @@
 
 <script>
 import ProductCard from './ProductCard.vue'
+import { mapState } from 'vuex'
+
 export default {
   components: { ProductCard },
 
   computed: {
-    products() {
-      return this.$store.state.products
-    }
+    // products() {
+    //   return this.$store.state.products
+    // }
+    ...mapState(['products'])
   },
 
   mounted() {
